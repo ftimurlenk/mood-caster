@@ -1,10 +1,12 @@
+// src/App.jsx
+
 import React, { useState, useEffect } from 'react';
 import { sdk } from '@farcaster/miniapp-sdk';
 import styles from './App.module.css';
 
 import MoodSelector from './components/MoodSelector';
 import CategorySelector from './components/CategorySelector';
-import GeneratedPost from './components/GeneratedPost'; // Eksik importu ekledik
+import GeneratedPost from './components/GeneratedPost';
 
 // Tarayıcıda açıldığında gösterilecek yedek component
 function FallbackComponent() {
@@ -22,25 +24,38 @@ function App() {
   const [isMiniApp, setIsMiniApp] = useState(false);
   const [isCheckingContext, setIsCheckingContext] = useState(true);
   
-  const [step, setStep] = useState('mood'); // Varsayılan 'mood' olmalı
+  const [step, setStep] = useState('mood');
   const [mood, setMood] = useState('');
   const [category, setCategory] = useState('');
   const [generatedPost, setGeneratedPost] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // --- BU BÖLÜM DEĞİŞTİ ---
   useEffect(() => {
-    async function checkContext() {
-      const inApp = await sdk.isInMiniApp(100);
-      setIsMiniApp(inApp);
-      setIsCheckingContext(false);
+    async function initializeApp() {
+      try {
+        // 1. Her zaman 'ready' demeyi dene.
+        // Farcaster hostu içindeyse (preview tool dahil) çalışacak.
+        await sdk.actions.ready();
+        
+        // 2. 'ready' başarılı olduysa, burası bir Mini App ortamıdır.
+        setIsMiniApp(true);
 
-      if (inApp) {
-        sdk.actions.ready().catch((err) => console.error("SDK Ready Error:", err));
+      } catch (error) {
+        // 3. 'ready' başarısız olursa (hata atarsa), 
+        // normal bir tarayıcıdayız demektir.
+        console.warn("Farcaster SDK not found. Running in fallback mode.", error);
+        setIsMiniApp(false);
+      } finally {
+        // 4. Ne olursa olsun, kontrol bitti.
+        setIsCheckingContext(false);
       }
     }
-    checkContext();
+    
+    initializeApp();
   }, []);
+  // --- DEĞİŞİKLİK SONU ---
 
   const handleMoodSelect = (selectedMood) => {
     setMood(selectedMood);
@@ -61,7 +76,6 @@ function App() {
     setError('');
   };
 
-  // AI Post Oluşturma (Groq)
   const generatePost = async (mood, category) => {
     setIsLoading(true);
     setError('');
@@ -85,7 +99,6 @@ function App() {
     }
   };
 
-  // Farcaster'da Paylaşma
   const handleCast = async () => {
     if (!generatedPost) return;
     try {
@@ -98,7 +111,6 @@ function App() {
     }
   };
 
-  // 1. Context kontrol edilirken
   if (isCheckingContext) {
     return (
       <div className={styles.container} style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -107,12 +119,10 @@ function App() {
     );
   }
 
-  // 2. Farcaster içinde değilse
   if (!isMiniApp) {
     return <FallbackComponent />;
   }
 
-  // 3. Farcaster içinde ve hazırsa
   return (
     <div className={styles.container}>
       <div className={styles.header}>MoodCaster</div>
@@ -123,7 +133,6 @@ function App() {
         <CategorySelector onSelect={handleCategorySelect} />
       )}
       
-      {/* BURASI DOLDURULDU */}
       {step === 'post' && (
         <>
           {isLoading && <div className={styles.loading}>Writing...</div>}
