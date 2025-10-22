@@ -38,7 +38,7 @@ export default async function handler(req, res) {
     }
 
     // 4. AI Prompt'u
-    const systemPrompt = `You are a popular content creator on Farcaster (/farcaster). You write short, engaging, and authentic casts (max 300 characters). You never use hashtags. You sound human and relatable.`;
+    const systemPrompt = `You are a popular content creator on Farcaster (/farcaster). You write short, engaging, and authentic casts (max 300 characters). You never use hashtags. You sound human and relatable.Do not use quotation marks.`;
     const userPrompt = `Write a Farcaster cast. My mood is: ${mood}. The topic is: ${category}. Respond *only* with the cast text, nothing else.`;
 
     // 5. Groq API Çağrısı
