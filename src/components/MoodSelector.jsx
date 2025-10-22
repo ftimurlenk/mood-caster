@@ -1,7 +1,17 @@
 import React from 'react';
 import styles from './Selector.module.css';
 
-const MOODS = ['Calm 🧘', 'Happy 😊', 'Energetic ⚡', 'Thoughtful 🤔'];
+// Seçenekleri artırdık
+const MOODS = [
+  'Happy 😊',
+  'Calm 🧘',
+  'Excited 🤩',
+  'Thoughtful 🤔',
+  'Grateful 🙏',
+  'Curious 🧐',
+  'Energetic ⚡',
+  'Focused 💻',
+];
 
 function MoodSelector({ onSelect }) {
   return (

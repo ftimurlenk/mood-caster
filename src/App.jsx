@@ -71,6 +71,8 @@ function App() {
     setError('');
   };
 
+ // src/App.jsx içindeki generatePost fonksiyonu
+
   const generatePost = async (mood, category) => {
     setIsLoading(true);
     setError('');
@@ -80,13 +82,27 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mood, category }),
       });
+
+      // ---- HATA YAKALAMA GÜNCELLEMESİ ----
       if (!response.ok) {
-        const errData = await response.json();
-        throw new Error(errData.message || 'Failed to generate post.');
+        let errorText = `Server error: ${response.status}`;
+        try {
+          // JSON hatasıysa onu parse et
+          const errorJson = await response.json();
+          errorText = errorJson.message || JSON.stringify(errorJson);
+        } catch (e) {
+          // JSON değilse (Vercel çöktüyse), düz metni oku
+          // "Unexpected token 'A'..." hatası burada yakalanacak
+          errorText = await response.text();
+        }
+        throw new Error(errorText);
       }
+      // ---- GÜNCELLEME SONU ----
+
       const data = await response.json();
       setGeneratedPost(data.post);
     } catch (err) {
+      // Artık hata mesajı daha net olacak
       setError(err.message);
     } finally {
       setIsLoading(false);

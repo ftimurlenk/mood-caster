@@ -1,3 +1,4 @@
+/* src/components/GeneratedPost.module.css */
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -12,55 +13,68 @@
 
 h2 {
   text-align: center;
-  font-weight: 500;
-  color: #444;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
   margin-bottom: 16px;
 }
 
 .postText {
   width: 100%;
-  min-height: 150px;
-  padding: 12px;
+  min-height: 180px;
+  padding: 14px;
   font-size: 16px;
-  line-height: 1.5;
-  color: #333;
+  line-height: 1.6;
+  color: #1a1a1a;
   background-color: #ffffff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-sizing: border-box; /* Önemli */
-  margin-bottom: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-sizing: border-box;
+  margin-bottom: 20px;
   font-family: inherit;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
 }
 
 .buttonGroup {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr; /* Mobil için tam genişlik */
   gap: 12px;
 }
 
+/* Masaüstü veya daha geniş ekranlarda yan yana */
+@media (min-width: 400px) {
+  .buttonGroup {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .button {
-  padding: 14px 20px;
+  padding: 16px 20px;
   font-size: 16px;
   font-weight: 600;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .resetButton {
-  background-color: #f0f0f0;
-  color: #555;
-  border: 1px solid #ddd;
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #e0e0e0;
 }
 .resetButton:hover {
-  background-color: #e5e5e5;
+  background-color: #f9f9f9;
+  border-color: #d0d0d0;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.07);
 }
 
 .castButton {
-  background-color: #8a63d2; /* Farcaster moru */
+  background-color: #8a63d2;
   color: white;
 }
 .castButton:hover {
   background-color: #7b58bb;
+  box-shadow: 0 3px 6px rgba(138, 99, 210, 0.2);
 }
