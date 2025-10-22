@@ -1,7 +1,7 @@
 // src/App.jsx
 import React, { useState, useEffect } from 'react';
 import { sdk } from '@farcaster/miniapp-sdk';
-import styles from './App.module.css';
+import styles from './App.css';
 
 import MoodSelector from './components/MoodSelector';
 import CategorySelector from './components/CategorySelector';
