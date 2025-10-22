@@ -1,0 +1,66 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  text-align: center;
+  font-weight: 500;
+  color: #444;
+  margin-bottom: 16px;
+}
+
+.postText {
+  width: 100%;
+  min-height: 150px;
+  padding: 12px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box; /* Önemli */
+  margin-bottom: 16px;
+  font-family: inherit;
+}
+
+.buttonGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.button {
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resetButton {
+  background-color: #f0f0f0;
+  color: #555;
+  border: 1px solid #ddd;
+}
+.resetButton:hover {
+  background-color: #e5e5e5;
+}
+
+.castButton {
+  background-color: #8a63d2; /* Farcaster moru */
+  color: white;
+}
+.castButton:hover {
+  background-color: #7b58bb;
+}
