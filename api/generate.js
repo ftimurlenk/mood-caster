@@ -47,7 +47,7 @@ export default async function handler(req, res) {
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt },
       ],
-      model: 'llama3-8b-8192',
+      model: 'llama-3.1-8b-instant',
       temperature: 0.7,
       max_tokens: 100,
     });
