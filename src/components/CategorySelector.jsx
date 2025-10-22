@@ -1,16 +1,17 @@
 import React from 'react';
 import styles from './Selector.module.css';
 
-// Seçenekleri artırdık
+
 const CATEGORIES = [
   'Good Morning ☀️',
-  'Hot Take 🔥',
-  'Project Update 🚀',
-  'Sharing Work 🎨',
+  'Good Night 🌙',
+  'Building in Web3 🛠️',
+  'NFT / Art Talk 🎨',
   'Fun Fact 💡',
-  'Ask Me Anything ❓',
+  'DeFi Thoughts 💹',
   'Tech Talk 💻',
-  'Life Update ✌️',
+  'On-Chain Data 📊',
+  'Community Call 📣',
 ];
 
 function CategorySelector({ onSelect }) {
