@@ -1,32 +1,43 @@
-<head>
-  ...
-  <title>MoodCaster - AI Cast Generator</title>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>MoodCaster - AI Cast Generator</title>
+    
+    <meta property="og:title" content="MoodCaster AI" />
+    <meta property="og:description" content="Generate Farcaster casts with AI based on your mood." />
+    <meta property="og:image" content="httpsYOUR_VERCEL_URL/og-image.png" />
 
-  <meta property="og:title" content="MoodCaster AI" />
-  <meta property="og:description" content="Generate Farcaster casts with AI based on your mood." />
-  <meta property="og:image" content="https://your-domain.com/og-image.png" />
-
-  <meta name="fc:miniapp" content='{
-    "version": "1", [cite: 40, 41]
-    "imageUrl": "https://your-domain.com/og-image.png", [cite: 42, 43]
-    "button": {
-      "title": "Create AI Cast", [cite: 44, 48]
-      "action": {
-        "type": "launch_frame", [cite: 55, 57]
-        "name": "MoodCaster" [cite: 61, 63]
+    <meta name="fc:miniapp" content='{
+      "version": "1",
+      "imageUrl": "httpsYOUR_VERCEL_URL/og-image.png",
+      "button": {
+        "title": "Create AI Cast",
+        "action": {
+          "type": "launch_frame",
+          "name": "MoodCaster"
+        }
       }
-    }
-  }' />
+    }' />
 
-  <meta name="fc:frame" content='{
-    "version": "1",
-    "imageUrl": "https://your-domain.com/og-image.png",
-    "button": {
-      "title": "Create AI Cast",
-      "action": {
-        "type": "launch_frame",
-        "name": "MoodCaster"
+    <meta name="fc:frame" content='{
+      "version": "1",
+      "imageUrl": "https..."YOUR_VERCEL_URL/og-image.png",
+      "button": {
+        "title": "Create AI Cast",
+        "action": {
+          "type": "launch_frame",
+          "name": "MoodCaster"
+        }
       }
-    }
-  }' />
-</head>
+    }' />
+    </head>
+  <body>
+    <div id="root"></div>
+    
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
