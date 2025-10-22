@@ -1,5 +1,4 @@
 // src/App.jsx
-
 import React, { useState, useEffect } from 'react';
 import { sdk } from '@farcaster/miniapp-sdk';
 import styles from './App.module.css';
@@ -8,22 +7,8 @@ import MoodSelector from './components/MoodSelector';
 import CategorySelector from './components/CategorySelector';
 import GeneratedPost from './components/GeneratedPost';
 
-// Tarayıcıda açıldığında gösterilecek yedek component
-function FallbackComponent() {
-  return (
-    <div className={styles.container} style={{ justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
-      <div className={styles.header}>MoodCaster</div>
-      <p style={{ textAlign: 'center', fontSize: '18px', color: '#333' }}>
-        Please open this app within a Farcaster client (like Warpcast) to use it.
-      </p>
-    </div>
-  );
-}
-
 function App() {
-  const [isMiniApp, setIsMiniApp] = useState(false);
-  const [isCheckingContext, setIsCheckingContext] = useState(true);
-  
+  // Uygulama mantığı state'leri
   const [step, setStep] = useState('mood');
   const [mood, setMood] = useState('');
   const [category, setCategory] = useState('');
@@ -31,32 +16,18 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // --- BU BÖLÜM DEĞİŞTİ ---
+  // --- YALNIZCA BU useEffect KULLANILACAK ---
   useEffect(() => {
-    async function initializeApp() {
-      try {
-        // 1. Her zaman 'ready' demeyi dene.
-        // Farcaster hostu içindeyse (preview tool dahil) çalışacak.
-        await sdk.actions.ready();
-        
-        // 2. 'ready' başarılı olduysa, burası bir Mini App ortamıdır.
-        setIsMiniApp(true);
-
-      } catch (error) {
-        // 3. 'ready' başarısız olursa (hata atarsa), 
-        // normal bir tarayıcıdayız demektir.
-        console.warn("Farcaster SDK not found. Running in fallback mode.", error);
-        setIsMiniApp(false);
-      } finally {
-        // 4. Ne olursa olsun, kontrol bitti.
-        setIsCheckingContext(false);
-      }
-    }
-    
-    initializeApp();
+    // Farcaster ortamında (preview tool veya client) olduğumuzu varsayarak
+    // doğrudan ready() çağırıyoruz.
+    sdk.actions.ready().catch((err) => {
+      // Normal tarayıcıda bu hata görünecektir, bu normaldir.
+      console.warn("Failed to call sdk.actions.ready(). Are you in a Farcaster client?", err);
+    });
   }, []);
   // --- DEĞİŞİKLİK SONU ---
 
+  // --- Diğer fonksiyonlar (değişiklik yok) ---
   const handleMoodSelect = (selectedMood) => {
     setMood(selectedMood);
     setStep('category');
@@ -111,18 +82,7 @@ function App() {
     }
   };
 
-  if (isCheckingContext) {
-    return (
-      <div className={styles.container} style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <div className={styles.loading}>Loading...</div>
-      </div>
-    );
-  }
-
-  if (!isMiniApp) {
-    return <FallbackComponent />;
-  }
-
+  // --- RENDER KISMI (Fallback'ler kaldırıldı) ---
   return (
     <div className={styles.container}>
       <div className={styles.header}>MoodCaster</div>
