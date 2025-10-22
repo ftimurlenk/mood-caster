@@ -114,7 +114,7 @@ function App() {
     try {
       await sdk.actions.composeCast({
         text: generatedPost,
-        embeds: [window.location.href],
+        
       });
     } catch (err) {
       console.error('Cast composition failed:', err);
