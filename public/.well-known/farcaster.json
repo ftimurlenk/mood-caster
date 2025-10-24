@@ -1,0 +1,34 @@
+{
+  "frame": {
+    "name": "MoodCaster AI App",
+    "version": "1",
+    "iconUrl": "https://mood-caster.vercel.app/icon.png",
+    "homeUrl": "https://mood-caster.vercel.app",
+    "imageUrl": "https://mood-caster.vercel.app/og-image.png",
+    "buttonTitle": "Cast Your Mood",
+    "splashImageUrl": "https://mood-caster.vercel.app/og-image.png",
+    "splashBackgroundColor": "#f7f7f8",
+    "webhookUrl": "https://mood-caster.vercel.app/api/webhook",
+    "subtitle": "AI-powered casts for any mood.",
+    "description": "Instantly generate AI-powered casts for Farcaster. Select your mood, pick a topic, and get a ready-to-share post in seconds.",
+    "primaryCategory": "social",
+    "tags": [
+      "social",
+      "ai-cast",
+      "mood",
+      "web3"
+    ],
+    "tagline": "Cast your mood.",
+    "ogTitle": "MoodCaster: AI Cast Generator",
+    "ogDescription": "Instantly turn your mood and a Web3 topic (GM, NFT) into the perfect Farcaster cast. All with AI.",
+    "ogImageUrl": "https://mood-caster.vercel.app/og-image.png"
+  },
+  "accountAssociation": {
+    "header": "eyJmaWQiOjI2MDU0MiwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDkxRmQ2NzI2NkZDNWYxZGJBODk5QjMwMjg5OTlEM0VmYzkxODJGZTkifQ",
+    "payload": "eyJkb21haW4iOiJtb29kLWNhc3Rlci52ZXJjZWwuYXBwIn0",
+    "signature": "X8Kh7eGmW2gmvX8I/wXF+FJ+vOocGfMkD4Brcm2e3vYFpMGFLjiP3M2uMBQOySpG6JGppvN1s31EnmQEAJt8Zxs=",
+    "baseBuilder": {
+    "ownerAddress": "0x6f6040a8a980EAC41792D125beC113f4B0A0f300"
+  }
+  }
+}
