@@ -57,6 +57,10 @@ function App() {
     setStep('category');
   };
 
+  const handleBackToMood = () => {
+    setStep('mood');
+  };
+
   const handleCategorySelect = (selectedCategory) => {
     setCategory(selectedCategory);
     setStep('post');
@@ -130,8 +134,14 @@ function App() {
   // 1. SDK kontrol edilirken yükleme ekranı göster
   if (!isReady) {
     return (
-      <div className={styles.container} style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <div className={styles.loading}>Loading...</div>
+      <div className={styles.container}>
+        <div className={styles.skeletonHeader}></div>
+        <div className={styles.loading}>
+          <div className={styles.skeletonCard}></div>
+          <div className={styles.skeletonCard}></div>
+          <div className={styles.skeletonCard}></div>
+          <div className={styles.skeletonCard}></div>
+        </div>
       </div>
     );
   }
@@ -144,29 +154,42 @@ function App() {
   // 3. SDK hazırsa ve Farcaster içindeysek, uygulamayı göster
   return (
     <div className={styles.container}>
-      <div className={styles.header}>MoodCaster</div>
-      
-      {step === 'mood' && <MoodSelector onSelect={handleMoodSelect} />}
-      
-      {step === 'category' && (
-        <CategorySelector onSelect={handleCategorySelect} />
-      )}
-      
-      {/* "..." SORUNUNU ÇÖZEN EKSİK BLOK BURADA */}
-      {step === 'post' && (
-        <>
-          {isLoading && <div className={styles.loading}>Writing...</div>}
-          {error && <div className={styles.error}>{error}</div>}
-          {generatedPost && (
-            <GeneratedPost
-              post={generatedPost}
-              onCast={handleCast}
-              onReset={handleReset}
-              onRegenerate={handleRegenerate}
+      <div className={styles.content}>
+        <div className={styles.header}>MoodCaster</div>
+        
+        <div className={styles.stepContainer}>
+          {step === 'mood' && <MoodSelector onSelect={handleMoodSelect} />}
+          
+          {step === 'category' && (
+            <CategorySelector 
+              onSelect={handleCategorySelect} 
+              onBack={handleBackToMood} 
             />
           )}
-        </>
-      )}
+          
+          {/* "..." SORUNUNU ÇÖZEN EKSİK BLOK BURADA */}
+          {step === 'post' && (
+            <>
+              {isLoading && (
+                <div className={styles.loading}>
+                  <div className={styles.skeletonCard} style={{ height: '180px' }}></div>
+                  <div className={styles.skeletonCard} style={{ height: '60px' }}></div>
+                </div>
+              )}
+              {error && <div className={styles.error}>{error}</div>}
+              {generatedPost && !isLoading && (
+                <GeneratedPost
+                  post={generatedPost}
+                  onCast={handleCast}
+                  onReset={handleReset}
+                  onRegenerate={handleRegenerate}
+                />
+              )}
+            </>
+          )}
+        </div>
+      </div>
+      <div className={styles.footer}>MoodCaster App for Base</div>
     </div>
   );
 }

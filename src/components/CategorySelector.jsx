@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Selector.module.css';
-
 
 const CATEGORIES = [
   'Good Morning ☀️',
@@ -14,16 +13,31 @@ const CATEGORIES = [
   'Community Call 📣',
 ];
 
-function CategorySelector({ onSelect }) {
+function CategorySelector({ onSelect, onBack }) {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const handleSelect = (category) => {
+    setSelectedCategory(category);
+    // Small delay for better UX
+    setTimeout(() => {
+      onSelect(category);
+    }, 150);
+  };
+
   return (
     <div className={styles.wrapper}>
-      <h2>What's the topic?</h2>
+      <div className={styles.headerContainer}>
+        <button className={styles.backButton} onClick={onBack}>
+          ←
+        </button>
+        <h2>What's the topic?</h2>
+      </div>
       <div className={styles.grid}>
         {CATEGORIES.map((category) => (
           <button
             key={category}
-            className={styles.button}
-            onClick={() => onSelect(category)}
+            className={`${styles.button} ${selectedCategory === category ? styles.selected : ''}`}
+            onClick={() => handleSelect(category)}
           >
             {category}
           </button>
@@ -32,4 +46,5 @@ function CategorySelector({ onSelect }) {
     </div>
   );
 }
+
 export default CategorySelector;

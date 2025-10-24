@@ -4,38 +4,43 @@ import styles from './GeneratedPost.module.css';
 function GeneratedPost({ post, onCast, onReset, onRegenerate }) {
   return (
     <div className={styles.wrapper}>
-      <h2>Your AI Cast:</h2>
-      <textarea
-        className={styles.postText}
-        value={post}
-        readOnly
-      />
+      <h2>Your AI Cast</h2>
+      <div className={styles.postCard}>
+        <textarea
+          className={styles.postText}
+          value={post}
+          readOnly
+        />
+      </div>
       <div className={styles.buttonGroup}>
-  {/* Ana Buton (Cast) */}
-  <button
-    className={`${styles.button} ${styles.castButton}`}
-    onClick={onCast}
-  >
-    Cast on Farcaster
-  </button>
+        {/* Ana Buton (Cast) */}
+        <button
+          className={`${styles.button} ${styles.castButton}`}
+          onClick={onCast}
+        >
+          <span className={styles.icon}>📤</span>
+          Cast on Farcaster
+        </button>
 
-  {/* İkincil Buton Grubu */}
-  <div className={styles.secondaryButtonGroup}>
-    <button
-      className={`${styles.button} ${styles.resetButton}`}
-      onClick={onReset}
-    >
-      Start Over
-    </button>
-    {/* YENİ BUTON */}
-    <button
-      className={`${styles.button} ${styles.resetButton}`} // 'Start Over' ile aynı stili kullanacak
-      onClick={onRegenerate}
-    >
-      Regenerate 🎲
-    </button>
-  </div>
-</div>
+        {/* İkincil Buton Grubu */}
+        <div className={styles.secondaryButtonGroup}>
+          <button
+            className={`${styles.button} ${styles.resetButton}`}
+            onClick={onReset}
+          >
+            <span className={styles.icon}>🔄</span>
+            Start Over
+          </button>
+          {/* YENİ BUTON */}
+          <button
+            className={`${styles.button} ${styles.resetButton}`}
+            onClick={onRegenerate}
+          >
+            <span className={styles.icon}>🎲</span>
+            Regenerate
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

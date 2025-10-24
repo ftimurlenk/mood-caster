@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  animation: fadeIn 0.3s ease-out;
+  animation: fadeIn 0.4s ease-out;
 }
 
 @keyframes fadeIn {
@@ -13,78 +13,111 @@
 
 h2 {
   text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 16px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 24px;
+  letter-spacing: -0.01em;
+}
+
+.postCard {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #F0F0F0;
 }
 
 .postText {
   width: 100%;
-  min-height: 180px;
-  padding: 14px;
-  font-size: 16px;
+  min-height: 160px;
+  padding: 0;
+  font-size: 17px;
   line-height: 1.6;
-  color: #1a1a1a;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
+  color: #1A1A1A;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
   box-sizing: border-box;
-  margin-bottom: 20px;
   font-family: inherit;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  resize: none;
+  font-weight: 400;
+}
+
+.postText:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .buttonGroup {
   display: flex;
-  flex-direction: column; /* Butonları alt alta diz */
+  flex-direction: column;
   width: 100%;
-  gap: 12px; /* Ana ve ikincil grup arası boşluk */
-}
-
-/* Masaüstü veya daha geniş ekranlarda yan yana */
-@media (min-width: 400px) {
-  .buttonGroup {
-    grid-template-columns: 1fr 1fr;
-  }
+  gap: 16px;
 }
 
 .button {
-  padding: 16px 20px;
-  font-size: 16px;
+  padding: 18px 24px;
+  font-size: 17px;
   font-weight: 600;
   border: none;
-  border-radius: 12px;
+  border-radius: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px; /* Generous touch target */
+  width: 100%;
+  letter-spacing: -0.01em;
 }
 
 .resetButton {
-  background-color: #ffffff;
-  color: #333;
-  border: 1px solid #e0e0e0;
+  background-color: #FFFFFF;
+  color: #6B7280; /* Secondary gray text */
+  border: 1px solid #E5E7EB;
+  font-weight: 500;
 }
+
 .resetButton:hover {
-  background-color: #f9f9f9;
-  border-color: #d0d0d0;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.07);
+  background-color: #F9FAFB;
+  border-color: #D1D5DB;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+}
+
+.resetButton:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .castButton {
-  background-color: #8a63d2;
+  background: linear-gradient(135deg, #8A63D2 0%, #6D48C1 100%); /* Subtle gradient */
   color: white;
-  /* Daha belirgin hale getirmek için: */
-  padding: 18px 20px;
-  font-size: 17px;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(138, 99, 210, 0.3);
+  letter-spacing: -0.01em;
 }
+
 .castButton:hover {
-  background-color: #7b58bb;
-  box-shadow: 0 3px 6px rgba(138, 99, 210, 0.2);
+  background: linear-gradient(135deg, #7B58BB 0%, #5D3DA1 100%);
+  box-shadow: 0 8px 24px rgba(138, 99, 210, 0.4);
+  transform: translateY(-2px);
+}
+
+.castButton:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 4px 16px rgba(138, 99, 210, 0.3);
 }
 
 .secondaryButtonGroup {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 'Start Over' ve 'Regenerate' yan yana */
-  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.icon {
+  margin-right: 8px;
+  font-size: 18px;
 }

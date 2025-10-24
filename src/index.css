@@ -1,15 +1,43 @@
 /* src/index.css */
+:root {
+  --farcaster-purple: #8A63D2;
+  --premium-background: #F7F7F8;
+  --surface: #FFFFFF;
+  --text-primary: #1A1A1A;
+  --text-secondary: #6B7280;
+  --border: #E5E7EB;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
   /* Premium görünüm için arka planı ayarla */
-  background-color: #f7f7f8;
+  background-color: var(--premium-background);
+  color: var(--text-primary);
+  line-height: 1.5;
 }
 
 * {
   box-sizing: border-box;
+}
+
+/* Better scrollbar for desktop */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--premium-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
 }

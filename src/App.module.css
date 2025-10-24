@@ -4,31 +4,101 @@
   max-width: 424px; /* Farcaster web boyutu */
   margin: 0 auto;
   padding: 24px 20px;
-  background-color: #f7f7f8;
+  background-color: #F7F7F8; /* Premium off-white background */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Helvetica Neue', sans-serif;
 }
 
 .header {
   font-size: 28px;
   font-weight: 700;
   text-align: center;
-  color: #1a1a1a;
-  margin-bottom: 24px;
+  color: #1A1A1A; /* Dark charcoal instead of pure black */
+  margin-bottom: 32px;
+  letter-spacing: -0.02em;
 }
 
-/* Yükleme ve Hata stilleri */
-.loading,
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6B7280; /* Secondary gray text */
+  padding: 24px 0 16px;
+  margin-top: auto;
+}
+
+/* Loading skeleton animation */
+.loading {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.skeletonHeader {
+  height: 24px;
+  width: 60%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 8px;
+  margin: 0 auto 24px;
+}
+
+.skeletonCard {
+  height: 80px;
+  width: 100%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Error state */
 .error {
   text-align: center;
   font-size: 16px;
-  padding: 40px 0;
-  color: #555;
-}
-
-.error {
+  padding: 40px 20px;
   color: #d93025;
   font-weight: 500;
-  white-space: pre-wrap; /* Hata mesajlarındaki satır aralarını koru */
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  border: 1px solid #ffebee;
+  white-space: pre-wrap;
+  margin-top: 20px;
+}
+
+/* Step transition animations */
+.stepContainer {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
