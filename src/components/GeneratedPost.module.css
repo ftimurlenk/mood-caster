@@ -36,9 +36,10 @@ h2 {
 }
 
 .buttonGroup {
-  display: grid;
-  grid-template-columns: 1fr; /* Mobil için tam genişlik */
-  gap: 12px;
+  display: flex;
+  flex-direction: column; /* Butonları alt alta diz */
+  width: 100%;
+  gap: 12px; /* Ana ve ikincil grup arası boşluk */
 }
 
 /* Masaüstü veya daha geniş ekranlarda yan yana */
@@ -73,8 +74,17 @@ h2 {
 .castButton {
   background-color: #8a63d2;
   color: white;
+  /* Daha belirgin hale getirmek için: */
+  padding: 18px 20px;
+  font-size: 17px;
 }
 .castButton:hover {
   background-color: #7b58bb;
   box-shadow: 0 3px 6px rgba(138, 99, 210, 0.2);
+}
+
+.secondaryButtonGroup {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 'Start Over' ve 'Regenerate' yan yana */
+  gap: 12px;
 }

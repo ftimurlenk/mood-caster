@@ -71,6 +71,12 @@ function App() {
     setError('');
   };
 
+  // regenerate 
+  const handleRegenerate = () => {
+  // Mevcut 'mood' ve 'category' ile AI'ı tekrar çağır
+  generatePost(mood, category);
+};
+
  // src/App.jsx içindeki generatePost fonksiyonu
 
   const generatePost = async (mood, category) => {
@@ -156,6 +162,7 @@ function App() {
               post={generatedPost}
               onCast={handleCast}
               onReset={handleReset}
+              onRegenerate={handleRegenerate}
             />
           )}
         </>
