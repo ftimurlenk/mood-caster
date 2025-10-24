@@ -60,7 +60,7 @@ h2 {
   justify-content: center;
   text-align: center;
   padding: 20px 16px;
-  font-size: 16px;
+  font-size: 15px; /* Reduced from 16px to 15px */
   font-weight: 600;
   color: #1A1A1A;
   background-color: #FFFFFF; /* Pure white surface */
