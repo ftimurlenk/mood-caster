@@ -21,7 +21,9 @@
     "tagline": "Cast your mood.",
     "ogTitle": "MoodCaster: AI Cast Generator",
     "ogDescription": "Instantly turn your mood and a Web3 topic (GM, NFT) into the perfect Farcaster cast. All with AI.",
-    "ogImageUrl": "https://mood-caster.vercel.app/og-image.png"
+    "ogImageUrl": "https://mood-caster.vercel.app/og-image.png",
+    "noindex":"false",
+    "heroImageUrl":"https://mood-caster.vercel.app/og-image.png"
   },
   "accountAssociation": {
     "header": "eyJmaWQiOjI2MDU0MiwidHlwZSI6ImF1dGgiLCJrZXkiOiIweDkxRmQ2NzI2NkZDNWYxZGJBODk5QjMwMjg5OTlEM0VmYzkxODJGZTkifQ",
