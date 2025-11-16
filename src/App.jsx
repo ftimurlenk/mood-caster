@@ -19,9 +19,19 @@ function App() {
   useEffect(() => {
     const initializeFarcaster = async () => {
       try {
+        const originalError = console.error;
+        console.error = (...args) => {
+          const msg = args[0]?.toString() || '';
+          if (!msg.includes('Authorization') && !msg.includes('token')) {
+            originalError(...args);
+          }
+        };
+
         await sdk.actions.ready();
         
         const context = await sdk.context;
+        
+        console.error = originalError;
         
         if (context?.user?.fid) {
           setFarcasterContext(context);
@@ -74,6 +84,10 @@ function App() {
   const generatePost = async (mood, category) => {
     setIsLoading(true);
     setError('');
+    setGeneratedPost('');
+    
+    console.log('[v0] Generating post for mood:', mood, 'category:', category);
+    
     try {
       const response = await fetch('/api/generate', {
         method: 'POST',
@@ -86,22 +100,28 @@ function App() {
         body: JSON.stringify({ mood, category }),
       });
 
+      console.log('[v0] Response status:', response.status);
+
       let data;
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.includes('application/json')) {
         data = await response.json();
       } else {
         const text = await response.text();
+        console.log('[v0] Got text response:', text);
         data = { message: text };
       }
       
       if (!response.ok) {
         const errorText = data.message || JSON.stringify(data);
+        console.log('[v0] Error from API:', errorText);
         throw new Error(errorText);
       }
 
+      console.log('[v0] Post generated successfully');
       setGeneratedPost(data.post);
     } catch (err) {
+      console.error('[v0] Error generating post:', err.message);
       setError(err.message || 'Failed to generate post');
     } finally {
       setIsLoading(false);
