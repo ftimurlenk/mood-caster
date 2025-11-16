@@ -1,10 +1,11 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-farcaster-fid');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-farcaster-fid, x-request-id');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+  res.setHeader('Pragma', 'no-cache');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -17,10 +18,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const { mood, category, fid } = req.body;
 
-    console.log('[v0] Generate API called with:', { mood, category, fid });
+    console.log('[v0] API called, Farcaster FID:', fid || 'none');
+    console.log('[v0] Generating for mood:', mood, 'category:', category);
 
     if (!mood || !category) {
-      console.log('[v0] Missing mood or category');
       return res.status(400).json({ error: 'Mood and category are required' });
     }
 
@@ -31,9 +32,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(500).json({ error: 'API key not configured' });
     }
 
-    console.log('[v0] Calling Groq API...');
+    const randomSeed = Math.floor(Math.random() * 10000000);
+    const randomPromptVariation = Math.floor(Math.random() * 3);
+    
+    const promptVariations = [
+      `Create a completely unique Farcaster cast about ${category} with a ${mood} mood. Make it creative and different.`,
+      `Write an original take on ${category} that captures the feeling of being ${mood}. Be unexpected and authentic.`,
+      `Express thoughts about ${category} in a ${mood} way. Make it fresh, unique, and conversational.`
+    ];
 
-    const randomSeed = Math.floor(Math.random() * 1000000);
     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -45,32 +52,27 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         messages: [
           {
             role: 'system',
-            content: `You are a creative Farcaster cast writer for the Base Network community. Your goal is to create unique, engaging posts that feel authentic and human. 
+            content: `You are a creative Farcaster cast writer for Base Network. Write unique, varied content every time.
 
 Rules:
-- Each cast must be completely different and original
-- Match the mood and topic naturally
-- Use varied vocabulary, sentence structures, and perspectives
-- Include emojis naturally (1-3 max)
+- NEVER repeat phrases, structures, or patterns
+- Use completely different vocabulary and perspectives each time
 - Keep under 280 characters
-- Never repeat phrases or patterns
-- Be conversational and authentic
-${fid ? `\nUser is a Base community member (FID: ${fid})` : ''}`
+- Include 1-3 emojis naturally
+- Be authentic and conversational
+- Vary sentence length and structure
+${fid ? `\n- User is FID ${fid}, part of Base community` : ''}`
           },
           {
             role: 'user',
-            content: `Write a completely unique and original Farcaster cast.
-Mood: ${mood}
-Topic: ${category}
-
-Make it fresh, creative, and different from anything you've written before. Vary your style, tone, and approach.`
+            content: promptVariations[randomPromptVariation]
           }
         ],
-        temperature: 1.3,
+        temperature: 1.4,
         max_tokens: 150,
         top_p: 0.95,
-        frequency_penalty: 1.0,
-        presence_penalty: 0.8,
+        frequency_penalty: 1.2,
+        presence_penalty: 0.9,
         seed: randomSeed
       }),
     });
@@ -91,6 +93,8 @@ Make it fresh, creative, and different from anything you've written before. Vary
 
     let generatedText = data.choices?.[0]?.message?.content || '';
     generatedText = generatedText.replace(/\s*\d{10,}\s*$/g, '').trim();
+    
+    console.log('[v0] Generated post:', generatedText);
 
     return res.status(200).json({ post: generatedText });
   } catch (error) {

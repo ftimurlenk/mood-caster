@@ -89,15 +89,23 @@ function App() {
     console.log('[v0] Generating post for mood:', mood, 'category:', category);
     
     try {
+      const requestId = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      
       const response = await fetch('/api/generate', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
+          'X-Request-ID': requestId,
+          'Cache-Control': 'no-cache',
           ...(farcasterContext?.user?.fid && {
             'X-Farcaster-FID': farcasterContext.user.fid.toString()
           })
         },
-        body: JSON.stringify({ mood, category }),
+        body: JSON.stringify({ 
+          mood, 
+          category,
+          fid: farcasterContext?.user?.fid 
+        }),
       });
 
       console.log('[v0] Response status:', response.status);
