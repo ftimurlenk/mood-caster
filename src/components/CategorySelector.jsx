@@ -2,15 +2,39 @@ import React, { useState } from 'react';
 import styles from './Selector.module.css';
 
 const CATEGORIES = [
+  // Time-based
   'Good Morning ☀️',
   'Good Night 🌙',
+  'Weekend Vibes 🎉',
+  
+  // Web3 & Crypto
   'Building in Web3 🛠️',
-  'NFT / Art Talk 🎨',
-  'Fun Fact 💡',
   'DeFi Thoughts 💹',
-  'Tech Talk 💻',
+  'NFT / Art Talk 🎨',
   'On-Chain Data 📊',
+  'Meme Coin Talk 🚀',
+  'Gaming & Metaverse 🎮',
+  'DAO Discussions 🏛️',
+  'Crypto News 📰',
+  'Token Launch 🪙',
+  
+  // Tech
+  'Tech Talk 💻',
+  'Fun Fact 💡',
+  
+  // General Interest
+  'Personal Growth 🌱',
+  'Business & Startup 💼',
+  'Health & Wellness 🧘',
+  'Sports & Fitness ⚽',
+  'Music & Entertainment 🎵',
+  
+  // Social & Engagement
   'Community Call 📣',
+  'Hot Take 🔥',
+  'Unpopular Opinion 💭',
+  'Story Time 📖',
+  'Question of the Day ❓',
 ];
 
 function CategorySelector({ onSelect, onBack }) {

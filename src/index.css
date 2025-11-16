@@ -1,43 +1,50 @@
-/* src/index.css */
 :root {
-  --farcaster-purple: #8A63D2;
-  --premium-background: #F7F7F8;
-  --surface: #FFFFFF;
-  --text-primary: #1A1A1A;
-  --text-secondary: #6B7280;
-  --border: #E5E7EB;
+  /* Dark theme with Base Network blue tones */
+  --color-primary: #0052FF; /* Base Network blue */
+  --color-primary-dark: #0041CC;
+  --color-primary-light: #3375FF;
+  --color-bg-primary: #0A0B0D;
+  --color-bg-secondary: #13151A;
+  --color-bg-elevated: #1C1F26;
+  --color-surface: #242830;
+  --color-text: #E8EAED;
+  --color-text-secondary: #9CA3AF;
+  --color-text-muted: #6B7280;
+  --color-border: #2D3139;
+  --color-border-light: #3A3F4A;
+  --color-shadow: rgba(0, 82, 255, 0.15);
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  font-family: 'Geist', -apple-system, system-ui, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
-  /* Premium görünüm için arka planı ayarla */
-  background-color: var(--premium-background);
-  color: var(--text-primary);
-  line-height: 1.5;
+  /* Dark gradient background with blue accents */
+  background: linear-gradient(to bottom, #0A0B0D 0%, #13151A 100%);
+  color: var(--color-text);
+  line-height: 1.6;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* Better scrollbar for desktop */
+/* Dark theme scrollbar with blue accent */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--premium-background);
+  background: var(--color-bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: var(--color-primary);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+  background: var(--color-primary-light);
 }

@@ -1,41 +1,77 @@
-/* src/components/GeneratedPost.module.css */
 .wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
-  animation: fadeIn 0.4s ease-out;
+  animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 h2 {
+  /* Light heading text */
   text-align: center;
-  font-size: 22px;
-  font-weight: 700;
-  color: #1A1A1A;
+  font-size: 26px;
+  font-weight: 400;
+  color: #E8EAED;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+/* Added styles for mood and topic info display */
+.infoBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
   margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.infoBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(0, 82, 255, 0.15) 0%, rgba(0, 65, 204, 0.1) 100%);
+  border: 1.5px solid rgba(0, 82, 255, 0.3);
+  padding: 10px 18px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 82, 255, 0.15);
+}
+
+.infoLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #9CA3AF;
+  letter-spacing: 0.02em;
+}
+
+.infoValue {
+  font-size: 14px;
+  font-weight: 600;
+  color: #E8EAED;
   letter-spacing: -0.01em;
 }
 
 .postCard {
-  background-color: #FFFFFF;
-  border-radius: 16px;
-  padding: 24px;
-  margin-bottom: 28px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  border: 1px solid #F0F0F0;
+  /* Dark elevated card */
+  background: linear-gradient(to bottom, #1C1F26 0%, #242830 100%);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 32px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 82, 255, 0.1);
+  border: 1.5px solid #2D3139;
 }
 
 .postText {
   width: 100%;
   min-height: 160px;
   padding: 0;
-  font-size: 17px;
-  line-height: 1.6;
-  color: #1A1A1A;
+  font-size: 16px;
+  line-height: 1.75;
+  color: #E8EAED;
   background-color: transparent;
   border: none;
   border-radius: 0;
@@ -54,70 +90,76 @@ h2 {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 16px;
+  gap: 14px;
 }
 
 .button {
-  padding: 18px 24px;
-  font-size: 17px;
-  font-weight: 600;
+  padding: 20px 28px;
+  font-size: 16px;
+  font-weight: 500;
   border: none;
   border-radius: 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 56px; /* Generous touch target */
+  min-height: 60px;
   width: 100%;
   letter-spacing: -0.01em;
 }
 
 .resetButton {
-  background-color: #FFFFFF;
-  color: #6B7280; /* Secondary gray text */
-  border: 1px solid #E5E7EB;
+  /* Dark secondary button */
+  background-color: #1C1F26;
+  color: #9CA3AF;
+  border: 1.5px solid #2D3139;
   font-weight: 500;
 }
 
 .resetButton:hover {
-  background-color: #F9FAFB;
-  border-color: #D1D5DB;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.07);
+  background-color: #242830;
+  border-color: #3A3F4A;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+  color: #E8EAED;
 }
 
 .resetButton:active {
-  transform: scale(0.98);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
 }
 
 .castButton {
-  background: linear-gradient(135deg, #8A63D2 0%, #6D48C1 100%); /* Subtle gradient */
-  color: white;
+  /* Base Network blue primary button */
+  background: linear-gradient(135deg, #0052FF 0%, #0041CC 100%);
+  color: #FFFFFF;
   font-weight: 600;
-  box-shadow: 0 6px 20px rgba(138, 99, 210, 0.3);
+  box-shadow: 0 8px 28px rgba(0, 82, 255, 0.5);
   letter-spacing: -0.01em;
+  border: none;
 }
 
 .castButton:hover {
-  background: linear-gradient(135deg, #7B58BB 0%, #5D3DA1 100%);
-  box-shadow: 0 8px 24px rgba(138, 99, 210, 0.4);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, #3375FF 0%, #0052FF 100%);
+  box-shadow: 0 12px 36px rgba(0, 82, 255, 0.6);
+  transform: translateY(-3px);
 }
 
 .castButton:active {
   transform: translateY(0) scale(0.98);
-  box-shadow: 0 4px 16px rgba(138, 99, 210, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 82, 255, 0.5);
 }
 
 .secondaryButtonGroup {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 14px;
 }
 
 .icon {
-  margin-right: 8px;
+  margin-right: 10px;
   font-size: 18px;
+  filter: grayscale(0.2);
 }

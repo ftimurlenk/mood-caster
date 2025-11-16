@@ -1,23 +1,40 @@
-/* src/App.module.css */
 .container {
   width: 100%;
-  max-width: 424px; /* Farcaster web boyutu */
+  max-width: 440px;
   margin: 0 auto;
-  padding: 24px 20px;
-  background-color: #F7F7F8; /* Premium off-white background */
+  padding: 48px 28px;
+  /* Dark gradient with subtle blue glow */
+  background: linear-gradient(165deg, #0A0B0D 0%, #13151A 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  font-family: 'Geist', -apple-system, system-ui, sans-serif;
 }
 
 .header {
-  font-size: 28px;
-  font-weight: 700;
+  /* Light text with blue gradient accent */
+  font-size: 42px;
+  font-weight: 300;
   text-align: center;
-  color: #1A1A1A; /* Dark charcoal instead of pure black */
-  margin-bottom: 32px;
+  color: #E8EAED;
+  margin-bottom: 56px;
   letter-spacing: -0.02em;
+  font-family: 'Geist', serif;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.header::after {
+  /* Blue gradient accent line */
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #0052FF, transparent);
+  box-shadow: 0 0 12px rgba(0, 82, 255, 0.5);
 }
 
 .content {
@@ -27,40 +44,44 @@
 }
 
 .footer {
+  /* Muted text for dark theme */
   text-align: center;
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 500;
-  color: #6B7280; /* Secondary gray text */
-  padding: 24px 0 16px;
+  color: #6B7280;
+  padding: 40px 0 24px;
   margin-top: auto;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-/* Loading skeleton animation */
 .loading {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   width: 100%;
 }
 
 .skeletonHeader {
-  height: 24px;
-  width: 60%;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  height: 28px;
+  width: 65%;
+  /* Dark shimmer effect */
+  background: linear-gradient(90deg, #1C1F26 25%, #242830 50%, #1C1F26 75%);
   background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-  border-radius: 8px;
-  margin: 0 auto 24px;
+  animation: loading 1.8s ease-in-out infinite;
+  border-radius: 14px;
+  margin: 0 auto 32px;
 }
 
 .skeletonCard {
-  height: 80px;
+  height: 90px;
   width: 100%;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  /* Dark shimmer animation */
+  background: linear-gradient(90deg, #1C1F26 25%, #242830 50%, #1C1F26 75%);
   background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-  border-radius: 16px;
-  margin-bottom: 12px;
+  animation: loading 1.8s ease-in-out infinite;
+  border-radius: 20px;
+  margin-bottom: 16px;
 }
 
 @keyframes loading {
@@ -72,30 +93,30 @@
   }
 }
 
-/* Error state */
 .error {
+  /* Dark error styling with red accent */
   text-align: center;
-  font-size: 16px;
-  padding: 40px 20px;
-  color: #d93025;
+  font-size: 14px;
+  padding: 28px 24px;
+  color: #FCA5A5;
   font-weight: 500;
-  background-color: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-  border: 1px solid #ffebee;
+  background-color: #1F1517;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(239, 68, 68, 0.15);
+  border: 1.5px solid #3F1F21;
   white-space: pre-wrap;
-  margin-top: 20px;
+  margin-top: 24px;
+  line-height: 1.7;
 }
 
-/* Step transition animations */
 .stepContainer {
-  animation: fadeIn 0.4s ease-out;
+  animation: fadeIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 @keyframes fadeIn {
   from { 
     opacity: 0; 
-    transform: translateY(10px); 
+    transform: translateY(20px); 
   }
   to { 
     opacity: 1; 

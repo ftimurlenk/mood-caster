@@ -7,23 +7,7 @@ import MoodSelector from './components/MoodSelector';
 import CategorySelector from './components/CategorySelector';
 import GeneratedPost from './components/GeneratedPost';
 
-// Hata durumunda (veya normal tarayıcıda) gösterilecek component
-function FallbackComponent() {
-  return (
-    <div className={styles.container} style={{ justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
-      <div className={styles.header}>MoodCaster</div>
-      <p style={{ textAlign: 'center', fontSize: '18px', color: '#333' }}>
-        This app is built for Farcaster.<br/><br/>
-        Please open it in a Farcaster client like Warpcast to use it.
-      </p>
-    </div>
-  );
-}
-
 function App() {
-  const [isMiniApp, setIsMiniApp] = useState(false); // Farcaster içinde mi?
-  const [isReady, setIsReady] = useState(false); // Hazır mı?
-
   const [step, setStep] = useState('mood');
   const [mood, setMood] = useState('');
   const [category, setCategory] = useState('');
@@ -32,27 +16,18 @@ function App() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    // Farcaster host'una bağlanmayı denemek için kısa bir gecikme verelim.
-    // Bu, 'ready not called' hatasını ve race condition'ı önler.
-    const timer = setTimeout(() => {
-      sdk.actions.ready()
-        .then(() => {
-          // Başarılı! Farcaster host'u (Preview veya Client) içindeyiz.
-          setIsMiniApp(true);
-          setIsReady(true);
-        })
-        .catch((err) => {
-          // Başarısız. Normal bir tarayıcıdayız.
-          console.warn("Farcaster SDK failed to initialize.", err);
-          setIsMiniApp(false);
-          setIsReady(true);
-        });
-    }, 100); // 100ms gecikme
-
-    return () => clearTimeout(timer); // cleanup
+    console.log('[v0] Initializing SDK in background');
+    sdk.actions.ready()
+      .then(() => {
+        console.log('[v0] SDK ready');
+      })
+      .catch((err) => {
+        console.log('[v0] SDK not available, running in preview mode', err);
+      });
   }, []);
 
   const handleMoodSelect = (selectedMood) => {
+    console.log('[v0] Mood selected:', selectedMood);
     setMood(selectedMood);
     setStep('category');
   };
@@ -62,6 +37,7 @@ function App() {
   };
 
   const handleCategorySelect = (selectedCategory) => {
+    console.log('[v0] Category selected:', selectedCategory);
     setCategory(selectedCategory);
     setStep('post');
     generatePost(mood, selectedCategory);
@@ -75,45 +51,47 @@ function App() {
     setError('');
   };
 
-  // regenerate 
   const handleRegenerate = () => {
-  // Mevcut 'mood' ve 'category' ile AI'ı tekrar çağır
-  generatePost(mood, category);
-};
-
- // src/App.jsx içindeki generatePost fonksiyonu
+    generatePost(mood, category);
+  };
 
   const generatePost = async (mood, category) => {
+    console.log('[v0] Generating post for mood:', mood, 'category:', category);
     setIsLoading(true);
     setError('');
     try {
-      const response = await sdk.quickAuth.fetch('/api/generate', {
+      const response = await fetch('/api/generate', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer preview-mode-token'
+        },
         body: JSON.stringify({ mood, category }),
       });
 
-      // ---- HATA YAKALAMA GÜNCELLEMESİ ----
+      console.log('[v0] Response status:', response.status);
+
+      let data;
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        console.log('[v0] Got text response:', text);
+        data = { message: text };
+      }
+      
       if (!response.ok) {
-        let errorText = `Server error: ${response.status}`;
-        try {
-          // JSON hatasıysa onu parse et
-          const errorJson = await response.json();
-          errorText = errorJson.message || JSON.stringify(errorJson);
-        } catch (e) {
-          // JSON değilse (Vercel çöktüyse), düz metni oku
-          // "Unexpected token 'A'..." hatası burada yakalanacak
-          errorText = await response.text();
-        }
+        const errorText = data.message || JSON.stringify(data);
+        console.log('[v0] Error from API:', errorText);
         throw new Error(errorText);
       }
-      // ---- GÜNCELLEME SONU ----
 
-      const data = await response.json();
+      console.log('[v0] Post generated successfully:', data.post);
       setGeneratedPost(data.post);
     } catch (err) {
-      // Artık hata mesajı daha net olacak
-      setError(err.message);
+      console.log('[v0] Error generating post:', err.message);
+      setError(err.message || 'Failed to generate post');
     } finally {
       setIsLoading(false);
     }
@@ -124,34 +102,13 @@ function App() {
     try {
       await sdk.actions.composeCast({
         text: generatedPost,
-        
       });
     } catch (err) {
       console.error('Cast composition failed:', err);
+      alert('Preview Mode: In Farcaster, this would open the cast composer.');
     }
   };
 
-  // 1. SDK kontrol edilirken yükleme ekranı göster
-  if (!isReady) {
-    return (
-      <div className={styles.container}>
-        <div className={styles.skeletonHeader}></div>
-        <div className={styles.loading}>
-          <div className={styles.skeletonCard}></div>
-          <div className={styles.skeletonCard}></div>
-          <div className={styles.skeletonCard}></div>
-          <div className={styles.skeletonCard}></div>
-        </div>
-      </div>
-    );
-  }
-
-  // 2. SDK hazırsa ve Farcaster içinde DEĞİLSEK, uyarı göster
-  if (isReady && !isMiniApp) {
-    return <FallbackComponent />;
-  }
-
-  // 3. SDK hazırsa ve Farcaster içindeysek, uygulamayı göster
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -167,7 +124,6 @@ function App() {
             />
           )}
           
-          {/* "..." SORUNUNU ÇÖZEN EKSİK BLOK BURADA */}
           {step === 'post' && (
             <>
               {isLoading && (
@@ -180,6 +136,8 @@ function App() {
               {generatedPost && !isLoading && (
                 <GeneratedPost
                   post={generatedPost}
+                  mood={mood}
+                  category={category}
                   onCast={handleCast}
                   onReset={handleReset}
                   onRegenerate={handleRegenerate}

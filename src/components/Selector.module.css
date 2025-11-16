@@ -1,102 +1,108 @@
-/* src/components/Selector.module.css */
 .wrapper {
   width: 100%;
-  animation: fadeIn 0.4s ease-out;
+  animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .headerContainer {
   display: flex;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
 }
 
 .backButton {
-  background: none;
-  border: none;
-  font-size: 24px;
+  /* Dark button with blue hover */
+  background: #1C1F26;
+  border: 1.5px solid #2D3139;
+  font-size: 20px;
   cursor: pointer;
-  color: #6B7280;
-  padding: 8px;
-  margin-right: 8px;
+  color: #9CA3AF;
+  padding: 10px;
+  margin-right: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  transition: all 0.2s ease;
+  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .backButton:hover {
-  background-color: #F5F3FF;
-  color: #8A63D2;
+  background-color: #242830;
+  border-color: #0052FF;
+  color: #3375FF;
+  transform: translateX(-2px);
+  box-shadow: 0 4px 12px rgba(0, 82, 255, 0.3);
 }
 
 h2 {
+  /* Light text on dark background */
   text-align: center;
-  font-size: 22px;
-  font-weight: 700;
-  color: #1A1A1A; /* Dark charcoal */
+  font-size: 26px;
+  font-weight: 400;
+  color: #E8EAED;
   margin: 0;
   flex: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .grid {
   display: grid;
-  /* Premium grid layout with consistent spacing */
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
 .button {
+  /* Dark cards with blue accent on hover */
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 16px 12px; /* Reduced padding to prevent wrapping */
-  font-size: 14px; /* Further reduced from 15px to 14px */
-  font-weight: 600;
-  color: #1A1A1A;
-  background-color: #FFFFFF; /* Pure white surface */
-  border: 2px solid #E5E7EB; /* Subtle border */
-  border-radius: 16px;
+  padding: 12px 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #E8EAED;
+  background-color: #1C1F26;
+  border: 1.5px solid #2D3139;
+  border-radius: 14px;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  line-height: 1.3; /* Adjusted line height */
-  min-height: 48px; /* Minimum touch target size */
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  line-height: 1.3;
+  min-height: 48px;
   
-  /* Premium subtle shadow */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
   
-  /* Prevent text wrapping */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal; /* Allow text wrapping for longer category names */
+  word-break: break-word;
+  hyphens: auto;
   
-  /* Micro-interaction on press */
-  transform: scale(1);
+  transform: translateY(0);
 }
 
 .button:hover {
-  border-color: #8A63D2; /* Farcaster purple on hover */
-  box-shadow: 0 6px 16px rgba(138, 99, 210, 0.1);
+  border-color: #0052FF;
+  background-color: #242830;
+  box-shadow: 0 8px 24px rgba(0, 82, 255, 0.25);
+  transform: translateY(-2px);
 }
 
 .button:active {
-  transform: scale(0.97); /* Subtle scale down on press */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   transition: transform 0.1s ease;
 }
 
 .button.selected {
-  background-color: #F5F3FF; /* Light purple background when selected */
-  border-color: #8A63D2; /* Farcaster purple border */
-  color: #8A63D2; /* Purple text */
-  box-shadow: 0 4px 16px rgba(138, 99, 210, 0.15);
+  /* Blue gradient for selected state */
+  background: linear-gradient(135deg, #0052FF 0%, #0041CC 100%);
+  border-color: #3375FF;
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(0, 82, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  font-weight: 600;
 }

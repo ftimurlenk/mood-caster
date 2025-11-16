@@ -1,10 +1,22 @@
 import React from 'react';
 import styles from './GeneratedPost.module.css';
 
-function GeneratedPost({ post, onCast, onReset, onRegenerate }) {
+function GeneratedPost({ post, mood, category, onCast, onReset, onRegenerate }) {
   return (
     <div className={styles.wrapper}>
       <h2>Your AI Cast</h2>
+      
+      <div className={styles.infoBar}>
+        <div className={styles.infoBadge}>
+          <span className={styles.infoLabel}>Mood:</span>
+          <span className={styles.infoValue}>{mood}</span>
+        </div>
+        <div className={styles.infoBadge}>
+          <span className={styles.infoLabel}>Topic:</span>
+          <span className={styles.infoValue}>{category}</span>
+        </div>
+      </div>
+
       <div className={styles.postCard}>
         <textarea
           className={styles.postText}
