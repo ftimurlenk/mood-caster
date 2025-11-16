@@ -2,42 +2,26 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>MoodCaster - AI Cast Generator</title>
+    <title>MoodCaster - AI Cast Generator for Base</title>
     
-    <meta property="og:title" content="MoodCaster AI" />
-    <meta property="og:description" content="Generate Farcaster casts with AI based on your mood." />
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="MoodCaster: AI Cast Generator" />
+    <meta property="og:description" content="Instantly turn your mood and a Web3 topic into the perfect Farcaster cast. All with AI." />
     <meta property="og:image" content="https://mood-caster.vercel.app/og-image.png" />
-
-    <meta name="fc:miniapp" content='{
-      "version": "1",
-      "imageUrl": "https://mood-caster.vercel.app/og-image.png",
-      "button": {
-        "title": "Create AI Cast",
-        "action": {
-          "type": "launch_frame",
-          "name": "MoodCaster"
-        }
-      }
-    }' />
-
-    <meta name="fc:frame" content='{
-      "version": "1",
-      "imageUrl": "https://mood-caster.vercel.app/og-image.png",
-      "button": {
-        "title": "Create AI Cast",
-        "action": {
-          "type": "launch_frame",
-          "name": "MoodCaster"
-        }
-      }
-    }' />
-    </head>
+    <meta property="og:type" content="website" />
+    
+    <!-- Farcaster Frame Meta Tags -->
+    <meta property="fc:frame" content="vNext" />
+    <meta property="fc:frame:image" content="https://mood-caster.vercel.app/og-image.png" />
+    <meta property="fc:frame:button:1" content="Cast Your Mood" />
+    <meta property="fc:frame:button:1:action" content="link" />
+    <meta property="fc:frame:button:1:target" content="https://mood-caster.vercel.app" />
+  </head>
   <body>
     <div id="root"></div>
-    
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

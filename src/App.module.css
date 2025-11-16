@@ -22,6 +22,12 @@
   font-family: 'Geist', serif;
   position: relative;
   padding-bottom: 20px;
+  /* Added flex for Base badge alignment */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .header::after {
@@ -122,4 +128,35 @@
     opacity: 1; 
     transform: translateY(0); 
   }
+}
+
+/* Added Base badge styling */
+.baseBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0052FF 0%, #0041CC 100%);
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 12px rgba(0, 82, 255, 0.3);
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 4px 12px rgba(0, 82, 255, 0.3);
+  }
+  to {
+    box-shadow: 0 4px 20px rgba(0, 82, 255, 0.5);
+  }
+}
+
+/* Added FID display styling */
+.fid {
+  color: #0052FF;
+  font-weight: 600;
+  margin-left: 4px;
 }

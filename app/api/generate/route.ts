@@ -2,19 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
-    const authorization = req.headers.get('authorization');
+    const farcasterFid = req.headers.get('x-farcaster-fid');
     
-    if (!authorization || !authorization.startsWith('Bearer ')) {
-      return NextResponse.json(
-        { message: 'Missing Authorization Token' },
-        { status: 401 }
-      );
-    }
-
-    const token = authorization.split(' ')[1];
-    const isPreviewMode = token === 'preview-mode-token';
-    
-    console.log('[v0] API called, preview mode:', isPreviewMode);
+    console.log('[v0] API called, Farcaster FID:', farcasterFid || 'none');
     
     if (!process.env.GROQ_API_KEY) {
       console.error('[v0] GROQ_API_KEY environment variable is not set');
@@ -23,8 +13,6 @@ export async function POST(req: NextRequest) {
         { status: 500 }
       );
     }
-    
-    console.log('[v0] Groq API Key exists:', !!process.env.GROQ_API_KEY);
 
     const body = await req.json();
     const { mood, category } = body;
@@ -40,6 +28,10 @@ export async function POST(req: NextRequest) {
     
     const randomSeed = Math.floor(Math.random() * 1000000);
     
+    const systemPrompt = farcasterFid 
+      ? 'You are a creative Farcaster content creator on Base Network. Write unique, diverse, and authentic casts (max 300 characters). NEVER repeat phrases or patterns. Each cast must be completely different. Be creative, vary your style, perspective, and topics. Never use hashtags. Sound natural and human. Occasionally reference Base Network culture when relevant.'
+      : 'You are a creative content creator on Farcaster. Write unique, diverse, and authentic casts (max 300 characters). NEVER repeat phrases or patterns. Each cast must be completely different. Be creative, vary your style, perspective, and topics. Never use hashtags. Sound natural and human.';
+    
     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -51,7 +43,7 @@ export async function POST(req: NextRequest) {
         messages: [
           {
             role: 'system',
-            content: 'You are a creative content creator on Farcaster. Write unique, diverse, and authentic casts (max 300 characters). NEVER repeat phrases or patterns. Each cast must be completely different. Be creative, vary your style, perspective, and topics. Never use hashtags. Sound natural and human.',
+            content: systemPrompt,
           },
           {
             role: 'user',
@@ -85,8 +77,14 @@ export async function POST(req: NextRequest) {
     
     const post = groqData.choices[0]?.message?.content?.trim() || '';
     console.log('[v0] Generated post:', post);
-
-    return NextResponse.json({ post }, { status: 200 });
+    
+    return NextResponse.json({ 
+      post,
+      metadata: {
+        fid: farcasterFid,
+        generatedAt: new Date().toISOString()
+      }
+    }, { status: 200 });
 
   } catch (error: any) {
     console.error('[v0] API error details:', {
