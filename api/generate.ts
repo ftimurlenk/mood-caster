@@ -33,6 +33,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     console.log('[v0] Calling Groq API...');
 
+    const randomSeed = Math.floor(Math.random() * 1000000);
     const groqResponse = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -44,18 +45,33 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         messages: [
           {
             role: 'system',
-            content: `You are a creative Farcaster cast generator for Base Network community. Create engaging, authentic posts that reflect the mood and topic. Be creative, use varied language, and make each post unique. Include emojis naturally. Keep it under 280 characters. ${fid ? `User FID: ${fid}` : ''}`
+            content: `You are a creative Farcaster cast writer for the Base Network community. Your goal is to create unique, engaging posts that feel authentic and human. 
+
+Rules:
+- Each cast must be completely different and original
+- Match the mood and topic naturally
+- Use varied vocabulary, sentence structures, and perspectives
+- Include emojis naturally (1-3 max)
+- Keep under 280 characters
+- Never repeat phrases or patterns
+- Be conversational and authentic
+${fid ? `\nUser is a Base community member (FID: ${fid})` : ''}`
           },
           {
             role: 'user',
-            content: `Create a unique Farcaster cast for mood: ${mood} and topic: ${category}. Timestamp: ${Date.now()}`
+            content: `Write a completely unique and original Farcaster cast.
+Mood: ${mood}
+Topic: ${category}
+
+Make it fresh, creative, and different from anything you've written before. Vary your style, tone, and approach.`
           }
         ],
-        temperature: 1.2,
-        max_tokens: 200,
-        frequency_penalty: 0.8,
-        presence_penalty: 0.6,
-        seed: Math.floor(Math.random() * 1000000)
+        temperature: 1.3,
+        max_tokens: 150,
+        top_p: 0.95,
+        frequency_penalty: 1.0,
+        presence_penalty: 0.8,
+        seed: randomSeed
       }),
     });
 
@@ -73,7 +89,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const data = await groqResponse.json();
     console.log('[v0] Groq API call successful');
 
-    const generatedText = data.choices?.[0]?.message?.content || '';
+    let generatedText = data.choices?.[0]?.message?.content || '';
+    generatedText = generatedText.replace(/\s*\d{10,}\s*$/g, '').trim();
 
     return res.status(200).json({ post: generatedText });
   } catch (error) {
