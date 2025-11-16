@@ -60,8 +60,7 @@ Rules:
 - Keep under 280 characters
 - Include 1-3 emojis naturally
 - Be authentic and conversational
-- Vary sentence length and structure
-${fid ? `\n- User is FID ${fid}, part of Base community` : ''}`
+- Vary sentence length and structure`
           },
           {
             role: 'user',

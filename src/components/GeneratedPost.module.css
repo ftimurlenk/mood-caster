@@ -13,10 +13,11 @@
 h2 {
   /* Light heading text */
   text-align: center;
-  font-size: 26px;
+  /* Reduced heading size for compact layout */
+  font-size: 22px;
   font-weight: 400;
   color: #E8EAED;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   letter-spacing: -0.02em;
 }
 
@@ -25,31 +26,35 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
+  /* Reduced gap and margin for compact horizontal layout */
+  gap: 10px;
+  margin-bottom: 18px;
   flex-wrap: wrap;
 }
 
 .infoBadge {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  /* Reduced gap and padding for smaller badges */
+  gap: 6px;
   background: linear-gradient(135deg, rgba(0, 82, 255, 0.15) 0%, rgba(0, 65, 204, 0.1) 100%);
   border: 1.5px solid rgba(0, 82, 255, 0.3);
-  padding: 10px 18px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 82, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 82, 255, 0.15);
 }
 
 .infoLabel {
-  font-size: 13px;
+  /* Smaller font for compact badges */
+  font-size: 11px;
   font-weight: 500;
   color: #9CA3AF;
   letter-spacing: 0.02em;
 }
 
 .infoValue {
-  font-size: 14px;
+  /* Smaller font for compact badges */
+  font-size: 12px;
   font-weight: 600;
   color: #E8EAED;
   letter-spacing: -0.01em;
@@ -59,18 +64,21 @@ h2 {
   /* Dark elevated card */
   background: linear-gradient(to bottom, #1C1F26 0%, #242830 100%);
   border-radius: 20px;
-  padding: 28px;
-  margin-bottom: 32px;
+  /* Reduced padding and margin for compact layout */
+  padding: 20px;
+  margin-bottom: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 82, 255, 0.1);
   border: 1.5px solid #2D3139;
 }
 
 .postText {
   width: 100%;
-  min-height: 160px;
+  /* Reduced min-height for compact layout */
+  min-height: 120px;
   padding: 0;
-  font-size: 16px;
-  line-height: 1.75;
+  /* Slightly smaller font for compact layout */
+  font-size: 15px;
+  line-height: 1.65;
   color: #E8EAED;
   background-color: transparent;
   border: none;
@@ -90,22 +98,25 @@ h2 {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 14px;
+  /* Reduced gap for compact buttons */
+  gap: 10px;
 }
 
 .button {
-  padding: 20px 28px;
-  font-size: 16px;
+  /* Reduced padding and font size for smaller buttons */
+  padding: 14px 20px;
+  font-size: 14px;
   font-weight: 500;
   border: none;
-  border-radius: 16px;
+  border-radius: 14px;
   cursor: pointer;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 60px;
+  /* Reduced min-height for compact buttons */
+  min-height: 48px;
   width: 100%;
   letter-spacing: -0.01em;
 }
@@ -155,11 +166,13 @@ h2 {
 .secondaryButtonGroup {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  /* Reduced gap for compact buttons */
+  gap: 10px;
 }
 
 .icon {
-  margin-right: 10px;
-  font-size: 18px;
+  margin-right: 8px;
+  /* Smaller icon size for compact buttons */
+  font-size: 16px;
   filter: grayscale(0.2);
 }
