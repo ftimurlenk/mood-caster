@@ -19,7 +19,8 @@ function App() {
   useEffect(() => {
     const initializeFarcaster = async () => {
       try {
-        await sdk.actions.ready({ timeout: 100 });
+        await sdk.actions.ready();
+        
         const context = await sdk.context;
         
         if (context?.user?.fid) {
@@ -31,6 +32,11 @@ function App() {
           });
         }
       } catch (err) {
+        try {
+          await sdk.actions.ready();
+        } catch (readyErr) {
+          // Silently fail in non-Farcaster environments
+        }
         setIsInFarcaster(false);
       }
     };
